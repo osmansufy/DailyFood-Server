@@ -87,6 +87,11 @@ admin
         collection.findOneAndDelete({_id:id})
         .then(documents=>res.send(!!documents.value))
     })
+    app.patch('/updateProduct/:id',(req,res)=>{
+        const id=ObjectID(req.params.id);
+        collection.updateOne({_id:id},{$set:{name:req.body.name,price:req.body.price,weight:req.body.weight}})
+        .then(result=>res.send(result.modifiedCount > 0))
+    })
 
 })
 app.listen(port, () => {
